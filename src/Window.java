@@ -4,6 +4,7 @@ import java.awt.image.*;
 import java.awt.event.*;
 import javax.swing.event.*;
 import javax.swing.plaf.basic.BasicButtonUI;
+import javax.swing.plaf.metal.*;
 
 class Window extends JFrame {
     private Canvas canvas;
@@ -13,8 +14,13 @@ class Window extends JFrame {
         setTitle("Paint+");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(800, 600);
-        setLaf(UIManager.getCrossPlatformLookAndFeelClassName());
-        //setLaf(UIManager.getSystemLookAndFeelClassName());
+
+        try {
+            UIManager.setLookAndFeel(new MetalLookAndFeel());
+            MetalLookAndFeel.setCurrentTheme(new DefaultMetalTheme());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         canvas = new Canvas(500, 400, BufferedImage.TYPE_INT_ARGB);
         add(canvas, BorderLayout.CENTER);
